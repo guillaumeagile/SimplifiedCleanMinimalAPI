@@ -1,7 +1,7 @@
 namespace CleanMinimalApi.WebAPI.Validators;
 
 using FluentValidation;
-using Requests;
+using RequestsDTO;
 
 public class UpdateReviewValidator : AbstractValidator<UpdateReviewRequest>
 {

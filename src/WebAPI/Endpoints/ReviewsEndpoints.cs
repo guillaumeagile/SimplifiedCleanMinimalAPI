@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Requests;
+using RequestsDTO;
 using Commands = Application.Reviews.Commands;
 using Entities = Application.Reviews.Entities;
 using Queries = Application.Reviews.Queries;

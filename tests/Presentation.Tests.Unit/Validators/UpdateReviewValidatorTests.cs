@@ -1,7 +1,7 @@
 namespace CleanMinimalApi.WebAPI.Tests.Unit.Validators;
 
 using FluentValidation.TestHelper;
-using Requests;
+using RequestsDTO;
 using WebAPI.Validators;
 using Xunit;
 

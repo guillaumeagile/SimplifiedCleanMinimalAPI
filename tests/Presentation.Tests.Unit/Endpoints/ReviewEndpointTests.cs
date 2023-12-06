@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Shouldly;
+using WebAPI.RequestsDTO;
 using Xunit;
 using Commands = Application.Reviews.Commands;
 using Entities = Application.Reviews.Entities;
@@ -202,7 +203,7 @@ public class ReviewEndpointTests
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.CreateReviewRequest
+        var request = new CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -262,7 +263,7 @@ public class ReviewEndpointTests
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.CreateReviewRequest
+        var request = new CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -289,7 +290,7 @@ public class ReviewEndpointTests
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.CreateReviewRequest
+        var request = new CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -319,7 +320,7 @@ public class ReviewEndpointTests
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.UpdateReviewRequest
+        var request = new UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -344,7 +345,7 @@ public class ReviewEndpointTests
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.UpdateReviewRequest
+        var request = new UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -370,7 +371,7 @@ public class ReviewEndpointTests
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new WebAPI.Requests.UpdateReviewRequest
+        var request = new UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
