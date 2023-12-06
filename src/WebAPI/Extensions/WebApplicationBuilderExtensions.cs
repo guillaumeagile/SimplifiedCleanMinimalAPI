@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Application;
 using FluentValidation;
-using Infrastructure;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
@@ -92,8 +92,21 @@ public static class WebApplicationBuilderExtensions
 
         #region Project Dependencies
 
-        _ = builder.Services.AddInfrastructure();
-        _ = builder.Services.AddApplication();
+       // _ = builder.Services.AddInfrastructure();
+       // _ = builder.Services.AddApplication();
+
+       /* for example , in Application or Core, put a file named DependencyInjection.cs
+        [ExcludeFromCodeCoverage]
+          public static class DependencyInjection
+          {
+          // this method is to be called in the WebAPI
+          public static IServiceCollection AddApplication(this IServiceCollection services)
+          {
+          _ = services.AddMediatR(Assembly.GetExecutingAssembly());
+          return services;
+          }
+          }
+        */
 
         #endregion Project Dependencies
 
