@@ -8,7 +8,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
