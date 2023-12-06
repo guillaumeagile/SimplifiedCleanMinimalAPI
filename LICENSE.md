@@ -1,6 +1,7 @@
 # MIT License
 
-Copyright (c) 2021, Stephen Walsh
+Created by Stephen Walsh
+Adaptation by Guillaume Saint Etienne 2023
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

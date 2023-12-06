@@ -47,11 +47,11 @@ COPY --from=test /sln/tests/results/*.xml .
 FROM build AS publish
 ARG VERSION_PREFIX
 ARG VERSION_SUFFIX
-RUN dotnet publish ./src/**/Presentation.csproj --no-restore -c Release -v quiet -o app -p:VersionPrefix=${VERSION_PREFIX} -p:VersionSuffix=${VERSION_SUFFIX}
+RUN dotnet publish ./src/**/WebAPI.csproj --no-restore -c Release -v quiet -o app -p:VersionPrefix=${VERSION_PREFIX} -p:VersionSuffix=${VERSION_SUFFIX}
 
 # Runtime Image
 FROM ${BASE_IMAGE_REPO}/${BASE_IMAGE_RUNTIME}:${BASE_IMAGE_RUNTIME_TAG} AS run
 WORKDIR /
 EXPOSE 80
 COPY --from=publish /sln/app .
-ENTRYPOINT ["dotnet", "Presentation.dll"]
+ENTRYPOINT ["dotnet", "WebAPI.dll"]
