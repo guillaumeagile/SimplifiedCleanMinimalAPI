@@ -69,10 +69,14 @@ public static class ReviewsEndpoints
     {
         try
         {
-            return Results.Ok(await mediator.Send(new Queries.GetReviews.GetReviewsQuery()));
+            return Results.Ok(
+                //await mediator.Send(new Queries.GetReviews.GetReviewsQuery())
+                // instead of using mediator (if we don"t want it), call directly
+                );
         }
         catch (Exception ex)
         {
+            // adapt this part with Either.Left
             return Results.Problem(ex.StackTrace, ex.Message, StatusCodes.Status500InternalServerError);
         }
     }
