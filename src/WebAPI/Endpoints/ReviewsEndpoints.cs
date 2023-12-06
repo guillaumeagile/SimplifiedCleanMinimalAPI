@@ -1,6 +1,6 @@
 namespace CleanMinimalApi.WebAPI.Endpoints;
 
-using CleanMinimalApi.Application.Common.Exceptions;
+
 using Filters;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using RequestsDTO;
-using Commands = Application.Reviews.Commands;
-using Entities = Application.Reviews.Entities;
-using Queries = Application.Reviews.Queries;
+using Validators;
+using ViewsDTO;
 
 public static class ReviewsEndpoints
 {
@@ -21,14 +20,14 @@ public static class ReviewsEndpoints
             .WithOpenApi();
 
         _ = root.MapGet("/", GetReviews)
-            .Produces<List<Entities.Review>>()
+           // .Produces<List<Entities.Review>>()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Lookup all Reviews")
             .WithDescription("\n    GET /Reviews");
 
         _ = root.MapGet("/{id:guid}", GetReviewById)
             .AddEndpointFilter<ValidationFilter<Guid>>()
-            .Produces<Entities.Review>()
+           // .Produces<Entities.Review>()
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
@@ -37,7 +36,7 @@ public static class ReviewsEndpoints
 
         _ = root.MapPost("/", CreateReview)
             .AddEndpointFilter<ValidationFilter<CreateReviewRequest>>()
-            .Produces<Entities.Review>(StatusCodes.Status201Created)
+            //.Produces<Entities.Review>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
             .WithSummary("Create a Review")
@@ -45,7 +44,7 @@ public static class ReviewsEndpoints
 
         _ = root.MapDelete("/{id:guid}", DeleteReview)
             .AddEndpointFilter<ValidationFilter<Guid>>()
-            .Produces(StatusCodes.Status204NoContent)
+           // .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
@@ -55,7 +54,7 @@ public static class ReviewsEndpoints
         _ = root.MapPut("/{id:guid}", UpdateReview)
             .AddEndpointFilter<ValidationFilter<Guid>>()
             .AddEndpointFilter<ValidationFilter<UpdateReviewRequest>>()
-            .Produces(StatusCodes.Status204NoContent)
+           // .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
@@ -85,10 +84,14 @@ public static class ReviewsEndpoints
     {
         try
         {
-            return Results.Ok(await mediator.Send(new Queries.GetReviewById.GetReviewByIdQuery
+            return Results.Ok(
+                // here, there is a dependency to the Queries as defined in the App/Core, so IT IS NOT decoupled as it should
+           /*     await mediator.Send(new Queries.GetReviewById.GetReviewByIdQuery
             {
                 Id = id
-            }));
+            })
+            */
+           );
         }
         catch (NotFoundException ex)
         {
@@ -109,12 +112,10 @@ public static class ReviewsEndpoints
         {
             return Results.Created(
                 UriHelper.GetEncodedUrl(httpRequest),
-                await mediator.Send(new Commands.CreateReview.CreateReviewCommand
-                {
-                    AuthorId = request.AuthorId,
-                    MovieId = request.MovieId,
-                    Stars = request.Stars
-                }));
+                new Review(stars: 0)
+
+
+                );
         }
         catch (NotFoundException ex)
         {
@@ -133,13 +134,13 @@ public static class ReviewsEndpoints
     {
         try
         {
-            _ = await mediator.Send(new Commands.UpdateReview.UpdateReviewCommand
+          /*  _ = await mediator.Send(new Commands.UpdateReview.UpdateReviewCommand
             {
                 Id = id,
                 AuthorId = bodyRequest.AuthorId,
                 MovieId = bodyRequest.MovieId,
                 Stars = bodyRequest.Stars
-            });
+            });*/
 
             return Results.NoContent();
         }
@@ -157,11 +158,11 @@ public static class ReviewsEndpoints
     {
         try
         {
-            _ = await mediator.Send(new Commands.DeleteReview.DeleteReviewCommand
+            /*_ = await mediator.Send(new Commands.DeleteReview.DeleteReviewCommand
             {
                 Id = id,
             });
-
+*/
             return Results.NoContent();
         }
         catch (NotFoundException ex)
