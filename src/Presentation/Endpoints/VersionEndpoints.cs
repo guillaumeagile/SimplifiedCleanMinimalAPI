@@ -27,7 +27,9 @@ public static class VersionEndpoints
     {
         try
         {
-            return Results.Ok(await mediator.Send(new Queries.GetVersion.GetVersionQuery()));
+            return Results.Ok(
+                //await mediator.Send(new Queries.GetVersion.GetVersionQuery())
+                );
         }
         catch (Exception ex)
         {
