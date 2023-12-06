@@ -1,4 +1,4 @@
-namespace CleanMinimalApi.Presentation.Tests.Integration.Extensions;
+namespace CleanMinimalApi.WebAPI.Tests.Integration.Extensions;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;

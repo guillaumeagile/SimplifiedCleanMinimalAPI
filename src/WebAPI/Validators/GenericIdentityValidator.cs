@@ -1,4 +1,4 @@
-namespace CleanMinimalApi.Presentation.Validators;
+namespace CleanMinimalApi.WebAPI.Validators;
 
 using FluentValidation;
 

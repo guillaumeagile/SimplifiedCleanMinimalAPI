@@ -1,8 +1,8 @@
-namespace CleanMinimalApi.Presentation.Tests.Unit.Validators;
+namespace CleanMinimalApi.WebAPI.Tests.Unit.Validators;
 
 using FluentValidation.TestHelper;
-using Presentation.Requests;
-using Presentation.Validators;
+using Requests;
+using WebAPI.Validators;
 using Xunit;
 
 public class UpdateReviewValidatorTests

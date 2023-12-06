@@ -1,6 +1,6 @@
-namespace CleanMinimalApi.Presentation.Requests;
+namespace CleanMinimalApi.WebAPI.Requests;
 
-public class UpdateReviewRequest
+public class CreateReviewRequest
 {
     public Guid AuthorId { get; init; }
 

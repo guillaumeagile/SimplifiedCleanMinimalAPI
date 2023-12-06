@@ -1,12 +1,12 @@
-namespace CleanMinimalApi.Presentation.Tests.Unit.Filters;
+namespace CleanMinimalApi.WebAPI.Tests.Unit.Filters;
 
 using System.Threading.Tasks;
-using CleanMinimalApi.Presentation.Filters;
-using CleanMinimalApi.Presentation.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Shouldly;
+using WebAPI.Filters;
+using WebAPI.Validators;
 using Xunit;
 
 public class ValidationFilterTests

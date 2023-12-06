@@ -1,4 +1,4 @@
-using CleanMinimalApi.Presentation.Extensions;
+using CleanMinimalApi.WebAPI.Extensions;
 using Serilog;
 
 public class Program

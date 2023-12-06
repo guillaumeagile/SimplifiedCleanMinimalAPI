@@ -1,13 +1,13 @@
-namespace CleanMinimalApi.Presentation.Endpoints;
+namespace CleanMinimalApi.WebAPI.Endpoints;
 
 using CleanMinimalApi.Application.Common.Exceptions;
-using CleanMinimalApi.Presentation.Filters;
-using CleanMinimalApi.Presentation.Requests;
+using Filters;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Requests;
 using Commands = Application.Reviews.Commands;
 using Entities = Application.Reviews.Entities;
 using Queries = Application.Reviews.Queries;

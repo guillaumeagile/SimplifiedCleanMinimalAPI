@@ -1,4 +1,4 @@
-namespace CleanMinimalApi.Presentation.Extensions;
+namespace CleanMinimalApi.WebAPI.Extensions;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;

@@ -1,4 +1,4 @@
-namespace CleanMinimalApi.Presentation.Tests.Integration.Endpoints;
+namespace CleanMinimalApi.WebAPI.Tests.Integration.Endpoints;
 
 using System.Collections.Generic;
 using System.Net;

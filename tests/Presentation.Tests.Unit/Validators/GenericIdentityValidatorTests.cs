@@ -1,7 +1,7 @@
-namespace CleanMinimalApi.Presentation.Tests.Unit.Validators;
+namespace CleanMinimalApi.WebAPI.Tests.Unit.Validators;
 
-using CleanMinimalApi.Presentation.Validators;
 using FluentValidation.TestHelper;
+using WebAPI.Validators;
 using Xunit;
 
 public class GenericIdentityValidatorTests

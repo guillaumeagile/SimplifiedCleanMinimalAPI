@@ -1,7 +1,7 @@
-namespace CleanMinimalApi.Presentation.Validators;
+namespace CleanMinimalApi.WebAPI.Validators;
 
-using CleanMinimalApi.Presentation.Requests;
 using FluentValidation;
+using Requests;
 
 public class CreateReviewValidator : AbstractValidator<CreateReviewRequest>
 {

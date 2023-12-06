@@ -1,8 +1,8 @@
-namespace CleanMinimalApi.Presentation.Extensions;
+namespace CleanMinimalApi.WebAPI.Extensions;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using CleanMinimalApi.Presentation.Endpoints;
+using WebAPI.Endpoints;
 using Microsoft.AspNetCore.Builder;
 using Serilog;
 
