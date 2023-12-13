@@ -2,6 +2,7 @@ namespace CleanMinimalApi.Presentation.Extensions;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Security.Claims;
 using CleanMinimalApi.Presentation.Endpoints;
 using Microsoft.AspNetCore.Builder;
 using Serilog;
@@ -20,6 +21,8 @@ public static class WebApplicationExtensions
         #region Security
 
         _ = app.UseHsts();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         #endregion Security
 
@@ -43,10 +46,33 @@ public static class WebApplicationExtensions
 
         #region MinimalApi
 
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+/*
+        app.UseCors(policy =>
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+        );
+*/
+
+
+        app.MapGet("/", () => "Hello, World!");
+        app.MapGet("/secret", (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}. My secret")
+            .RequireAuthorization();
+
         _ = app.MapVersionEndpoints();
         _ = app.MapAuthorEndpoints();
         _ = app.MapMovieEndpoints();
         _ = app.MapReviewEndpoints();
+
+        app.MapControllers();
 
         #endregion MinimalApi
 
