@@ -18,6 +18,7 @@ public static class AuthorsEndpoints
 
         _ = root.MapGet("/", GetAuthors)
             .Produces<List<Entities.Author>>()
+            .RequireAuthorization()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Lookup all Authors")
             .WithDescription("\n    GET /Authors");
