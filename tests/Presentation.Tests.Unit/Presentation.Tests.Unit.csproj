@@ -8,7 +8,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebAPI\WebAPI.csproj" />
+    <ProjectReference Include="..\..\src\Presentation\Presentation.csproj" />
   </ItemGroup>
 
 </Project>

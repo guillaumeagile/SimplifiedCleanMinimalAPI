@@ -4,15 +4,13 @@ using System.Threading.Tasks;
 using CleanMinimalApi.Application.Authors.Entities;
 using CleanMinimalApi.Application.Common.Exceptions;
 using CleanMinimalApi.Application.Movies.Entities;
-using CleanMinimalApi.WebAPI.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
+using Presentation.Endpoints;
 using Shouldly;
-using WebAPI.RequestsDTO;
-using WebAPI.ViewsDTO;
 using Xunit;
 using Commands = Application.Reviews.Commands;
 using Entities = Application.Reviews.Entities;
@@ -52,10 +50,10 @@ public class ReviewEndpointTests
         var response = await ReviewsEndpoints.GetReviews(mediator);
 
         // Assert
-        // var result = response.ShouldBeOfType<Ok<List<Entities.Review>>>();
-        var result = response.ShouldBeOfType<Ok>();
+        var result = response.ShouldBeOfType<Ok<List<Entities.Review>>>();
+
         result.StatusCode.ShouldBe(StatusCodes.Status200OK);
-/*
+
         var value = result.Value.ShouldBeOfType<List<Entities.Review>>();
 
         _ = value[0].Id.ShouldBeOfType<Guid>();
@@ -74,11 +72,10 @@ public class ReviewEndpointTests
         value[0].ReviewedMovie.Id.ShouldBe(Guid.Empty);
         _ = value[0].ReviewedMovie.Title.ShouldBeOfType<string>();
         value[0].ReviewedMovie.Title.ShouldBe("Lorem Ipsum");
-        */
     }
 
-   // [Fact]
-     async Task GetReviews_ShouldReturn_Problem()   //problems was removed from code
+    [Fact]
+    public async Task GetReviews_ShouldReturn_Problem()
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
@@ -130,10 +127,10 @@ public class ReviewEndpointTests
         var response = await ReviewsEndpoints.GetReviewById(Guid.Empty, mediator);
 
         // Assert
-        var result = response.ShouldBeOfType<Ok>();
+        var result = response.ShouldBeOfType<Ok<Entities.Review>>();
 
         result.StatusCode.ShouldBe(StatusCodes.Status200OK);
-/*
+
         var value = result.Value.ShouldBeOfType<Entities.Review>();
 
         _ = value.Id.ShouldBeOfType<Guid>();
@@ -152,10 +149,9 @@ public class ReviewEndpointTests
         value.ReviewedMovie.Id.ShouldBe(Guid.Empty);
         _ = value.ReviewedMovie.Title.ShouldBeOfType<string>();
         value.ReviewedMovie.Title.ShouldBe("Lorem Ipsum");
-        */
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task GetReviewById_ShouldReturn_NotFound()
     {
         // Arrange
@@ -175,7 +171,7 @@ public class ReviewEndpointTests
         result.Value.ShouldBe("Expected Exception");
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task GetReviewById_ShouldReturn_Problem()
     {
         // Arrange
@@ -205,7 +201,7 @@ public class ReviewEndpointTests
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new CreateReviewRequest
+        var request = new Requests.CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -235,27 +231,37 @@ public class ReviewEndpointTests
         var response = await ReviewsEndpoints.CreateReview(request, mediator, httpRequest);
 
         // Assert
-        var result = response.ShouldBeOfType<Created<Review>>();
+        var result = response.ShouldBeOfType<Created<Entities.Review>>();
 
         result.StatusCode.ShouldBe(StatusCodes.Status201Created);
 
-        var value = result.Value.ShouldBeOfType<Review>();
+        var value = result.Value.ShouldBeOfType<Entities.Review>();
 
-      //  _ = value.Id.ShouldBeOfType<Guid>();
-      // value.Id.ShouldBe(Guid.Empty);
+        _ = value.Id.ShouldBeOfType<Guid>();
+        value.Id.ShouldBe(Guid.Empty);
         _ = value.Stars.ShouldBeOfType<int>();
-        value.Stars.ShouldBe(0);
+        value.Stars.ShouldBe(5);
 
+        _ = value.ReviewAuthor.Id.ShouldBeOfType<Guid>();
+        value.ReviewAuthor.Id.ShouldBe(Guid.Empty);
+        _ = value.ReviewAuthor.FirstName.ShouldBeOfType<string>();
+        value.ReviewAuthor.FirstName.ShouldBe("Lorem");
+        _ = value.ReviewAuthor.LastName.ShouldBeOfType<string>();
+        value.ReviewAuthor.LastName.ShouldBe("Ipsum");
 
+        _ = value.ReviewedMovie.Id.ShouldBeOfType<Guid>();
+        value.ReviewedMovie.Id.ShouldBe(Guid.Empty);
+        _ = value.ReviewedMovie.Title.ShouldBeOfType<string>();
+        value.ReviewedMovie.Title.ShouldBe("Lorem Ipsum");
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task CreateReview_ShouldReturn_NotFound()
     {
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new CreateReviewRequest
+        var request = new Requests.CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -276,13 +282,13 @@ public class ReviewEndpointTests
         result.Value.ShouldBe("Expected Exception");
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task CreateReview_ShouldReturn_Problem()
     {
         // Arrange
         var httpRequest = Substitute.For<HttpRequest>();
         var mediator = Substitute.For<IMediator>();
-        var request = new CreateReviewRequest
+        var request = new Requests.CreateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -312,7 +318,7 @@ public class ReviewEndpointTests
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new UpdateReviewRequest
+        var request = new Requests.UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -332,12 +338,12 @@ public class ReviewEndpointTests
         result.StatusCode.ShouldBe(StatusCodes.Status204NoContent);
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task UpdateReview_ShouldReturn_NotFound()
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new UpdateReviewRequest
+        var request = new Requests.UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -358,12 +364,12 @@ public class ReviewEndpointTests
         result.Value.ShouldBe("Expected Exception");
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task UpdateReview_ShouldReturn_Problem()
     {
         // Arrange
         var mediator = Substitute.For<IMediator>();
-        var request = new UpdateReviewRequest
+        var request = new Requests.UpdateReviewRequest
         {
             AuthorId = Guid.Empty,
             MovieId = Guid.Empty,
@@ -407,7 +413,7 @@ public class ReviewEndpointTests
         result.StatusCode.ShouldBe(StatusCodes.Status204NoContent);
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task DeleteReview_ShouldReturn_NotFound()
     {
         // Arrange
@@ -427,7 +433,7 @@ public class ReviewEndpointTests
         result.Value.ShouldBe("Expected Exception");
     }
 
-    [Fact(Skip ="mediator is not used for now")]
+    [Fact]
     public async Task DeleteReview_ShouldReturn_Problem()
     {
         // Arrange

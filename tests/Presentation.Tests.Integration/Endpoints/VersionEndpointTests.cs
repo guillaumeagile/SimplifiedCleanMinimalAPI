@@ -1,4 +1,4 @@
-namespace CleanMinimalApi.WebAPI.Tests.Integration.Endpoints;
+namespace CleanMinimalApi.Presentation.Tests.Integration.Endpoints;
 
 using System.Net;
 using System.Threading.Tasks;
